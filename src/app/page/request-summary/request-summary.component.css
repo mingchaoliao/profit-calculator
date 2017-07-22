@@ -1,0 +1,11 @@
+hr {
+  margin: 0;
+}
+
+.request {
+  cursor: pointer;
+}
+
+.request:hover {
+  background-color: #EEEEEE;
+}

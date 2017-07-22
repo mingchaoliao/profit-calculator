@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="col-xs-12">
+    <a [routerLink]="['']" class="btn btn-primary">Go Back</a>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+  <div class="col-xs-12">
+    <div class="col-xs-12" style="border-bottom: 2px solid #dddddd; padding: 8px 0;">
+      <div class="row">
+        <div class="col-xs-3"><strong>Request ID</strong></div>
+        <div class="col-xs-3"><strong>Status</strong></div>
+        <div class="col-xs-3"><strong>Progress</strong></div>
+        <div class="col-xs-3"><strong>Requested At</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="requests">
+ <div class="col-xs-12" *ngFor="let request of requests; let requestIndex = index;">
+   <div class="row">
+     <div class="col-xs-12">
+       <div class="col-xs-12 request" style="padding: 8px 0;" (click)="collapseController(requestIndex)">
+         <div class="col-xs-3" style="padding: 0;">{{request.pc_request_id}}</div>
+         <div class="col-xs-3" style="padding: 0;">{{request.status}}</div>
+         <div class="col-xs-3" style="padding: 0;">
+           <div style="width: 40px; display: inline-block;" class="text-right">{{floor(request.number_of_completed_items/request.number_of_requested_items*100)}}%</div>
+           <div style="margin-left: 8px; display: inline-block;">({{request.number_of_completed_items}}/{{request.number_of_requested_items}})</div>
+         </div>
+         <div class="col-xs-3" style="padding: 0;">{{request.pc_request_created_at}}</div>
+       </div>
+     </div>
+   </div>
+   <div class="row">
+     <div class="col-xs-12">
+       <div class="collapse" id="collapse{{requestIndex}}">
+         <div class="well">
+           <div class="table-responsive" *ngIf="request.detail">
+             <table class="table" id="amazon-item-table">
+               <thead>
+               <tr>
+                 <th>Status</th>
+                 <th>Product Name</th>
+                 <th>ASIN</th>
+                 <th>List Price</th>
+                 <th>Rank</th>
+                 <th>Estimated Sales</th>
+                 <th>Amazon Fee</th>
+                 <th># of Review</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr *ngFor="let requestedItem of request.detail; let requestedItemIndex = index;" [ngStyle]="{'background-color': requestedItem.status=='Completed'?'#DEFFDE':'none', 'cursor': requestedItem.status=='Completed'?'pointer':'normal'}" (click)="viewItemDetail(requestIndex, requestedItemIndex)">
+                 <td>{{requestedItem.status}}</td>
+                 <td>{{requestedItem.product_name}}</td>
+                 <td>{{requestedItem.asin}}</td>
+                 <td>
+                   <span *ngIf="requestedItem.status!='Completed'" style="opacity: 0.5;">Hidden</span>
+                   <span *ngIf="requestedItem.status=='Completed'">{{requestedItem.list_price}}</span>
+                 </td>
+                 <td>
+                   <span *ngIf="requestedItem.status!='Completed'" style="opacity: 0.5;">Hidden</span>
+                   <span *ngIf="requestedItem.status=='Completed'">{{requestedItem.rank}}</span>
+                 </td>
+                 <td>
+                   <span *ngIf="requestedItem.status!='Completed'" style="opacity: 0.5;">Hidden</span>
+                   <span *ngIf="requestedItem.status=='Completed'">{{requestedItem.estimated_sales}}</span>
+                 </td>
+                 <td>
+                   <span *ngIf="requestedItem.status!='Completed'" style="opacity: 0.5;">Hidden</span>
+                   <span *ngIf="requestedItem.status=='Completed'">{{requestedItem.amazon_fee}}</span>
+                 </td>
+                 <td>
+                   <span *ngIf="requestedItem.status!='Completed'" style="opacity: 0.5;">Hidden</span>
+                   <span *ngIf="requestedItem.status=='Completed'">{{requestedItem.number_of_review}}</span>
+                 </td>
+               </tr>
+               </tbody>
+             </table>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+   <hr>
+ </div>
+</div>

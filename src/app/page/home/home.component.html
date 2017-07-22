@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="col-xs-6">
+    <p *ngIf="tabTitle">Add Current Item: </p>
+    <a class="btn btn-primary" (click)="addCurrentItem()" *ngIf="tabTitle">{{tabTitle}}</a>
+  </div>
+  <div class="col-xs-6 text-right">
+    <a [routerLink]="['', 'request-summary']" class="btn btn-primary">Result Summary</a>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+  <div class="col-xs-12">
+    <div class="table-responsive" *ngIf="amazonItems">
+      <table class="table" id="amazon-item-table">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Product Name</th>
+          <th>ASIN</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let amazonItem of amazonItems; let i = index;">
+          <td (click)="rowClick(i)" class="text-center">
+            <i style="font-size: 20px;" class="fa fa-circle-o" aria-hidden="true" *ngIf="!amazonItem.checked && !amazonItem.pc_request_status"></i>
+            <i style="font-size: 20px; color: #337AB7;" class="fa fa-check-circle-o" aria-hidden="true" *ngIf="amazonItem.checked && !amazonItem.pc_request_status"></i>
+            <span *ngIf="amazonItem.pc_request_status" style="color: #5CB85C;">Requested</span>
+          </td>
+          <td>
+            <span style="color: #1155CC; cursor: pointer;" (click)="productNameClicked(amazonItem.asin)" data-toggle="tooltip" title="<img src='{{amazonItem.image_url}}' />" *ngIf="amazonItem.image_url">{{amazonItem.product_name}}</span>
+            <span style="color: #1155CC; cursor: pointer;" (click)="productNameClicked(amazonItem.asin)" *ngIf="!amazonItem.image_url">{{amazonItem.product_name}}</span>
+            <span class="badge" *ngIf="amazonItem.pc_request_status && amazonItem.pc_request_status != 'Completed'" style="opacity: 0.5;">
+              {{amazonItem.pc_request_status}}
+            </span>
+            <span [routerLink]="['detail']" [queryParams]="{back: 'home', requestedItemId: amazonItem.pc_user_amazon_item_id}" class="badge" *ngIf="amazonItem.pc_request_status && amazonItem.pc_request_status == 'Completed'" style="background-color: #5CB85C; cursor: pointer;">
+             View Result
+            </span>
+          </td>
+          <td>{{amazonItem.asin}}</td>
+          <td>
+            <i class="fa fa-trash-o" aria-hidden="true" style="color: red; cursor: pointer;" (click)="deleteItem(i)" *ngIf="!amazonItem.pc_request_status"></i>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+  <div class="col-xs-6">
+    <a class="btn btn-primary" (click)="selectAll()">Select All</a>
+    <a class="btn btn-primary" (click)="deselectAll()">Deselect All</a>
+  </div>
+  <div class="col-xs-6 text-right">
+    <a class="btn btn-success {{showSubmitBtn?'':'disabled'}}" (click)="submit()">Submit</a>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="delete-confirm-modal" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Warning</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>Are you sure you want to delete this item ?</h4>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" (click)="deleteItemConfirmed()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="submit-confirm-modal" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirmation</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <h4>You are trying to submit following {{submitItems.length}} items:</h4>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>ASIN</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let submitItem of submitItems">
+                <td>{{submitItem.product_name}}</td>
+                <td>{{submitItem.asin}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" (click)="submitConfirmed()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-xs-12">
+    <a [routerLink]="['', 'request-summary']" [queryParams]="{ 'requestId': requestId?requestId:'' }" class="btn btn-primary" *ngIf="back && back=='request-summary'">Go Back</a>
+    <a [routerLink]="['']" class="btn btn-primary" *ngIf="back && back =='home'">Go Back</a>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+  <div class="col-xs-12">
+    <h3>Amazon Products: </h3>
+  </div>
+  <div class="col-xs-12">
+    <div class="table-responsive" *ngIf="requestedItemDetails">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Status</th>
+          <th>Product Name</th>
+          <th>ASIN</th>
+          <th>List Price</th>
+          <th>Rank</th>
+          <th>Estimated Sales</th>
+          <th>Amazon Fee</th>
+          <th># of Review</th>
+          <th>Requested At</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{requestedItemDetails[0].status}}</td>
+          <td>{{requestedItemDetails[0].product_name}}</td>
+          <td>{{requestedItemDetails[0].asin}}</td>
+          <td>{{requestedItemDetails[0].list_price}}</td>
+          <td>{{requestedItemDetails[0].rank}}</td>
+          <td>{{requestedItemDetails[0].estimated_sales}}</td>
+          <td>{{requestedItemDetails[0].amazon_fee}}</td>
+          <td>{{requestedItemDetails[0].number_of_review}}</td>
+          <td>{{requestedItemDetails[0].pc_request_created_at}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+  <div class="col-xs-12">
+    <h3>Alibaba Products: </h3>
+  </div>
+  <div class="col-xs-12">
+    <div class="table-responsive" *ngIf="requestedItemDetails">
+      <p *ngIf="requestedItemDetails.length===1&&!requestedItemDetails[0].alibaba_url">Sorry, we did not find any Alibaba product related to this Amazon product.</p>
+      <table class="table" *ngIf="requestedItemDetails.length>1||requestedItemDetails[0].alibaba_url">
+        <thead>
+        <tr>
+          <th>URL</th>
+          <th>Similarity</th>
+          <th>Potential Opportunity</th>
+          <th>Price Max</th>
+          <th>Price Min</th>
+          <th>Length</th>
+          <th>Width</th>
+          <th>Height</th>
+          <th>Weight</th>
+          <th>MOQ</th>
+          <th>Lead Time</th>
+          <th>Estimated FBA Cost By Air</th>
+          <th>Estimated FBA Cost By Local</th>
+          <th>Max ROI</th>
+          <th>Min ROI</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let requestedItemDetail of requestedItemDetails">
+          <td>{{ requestedItemDetail.alibaba_url }}</td>
+          <td>{{ requestedItemDetail.similarity }}</td>
+          <td>{{ requestedItemDetail.potential_opportunity }}</td>
+          <td>{{ requestedItemDetail.alibaba_price_max }}</td>
+          <td>{{ requestedItemDetail.alibaba_price_min }}</td>
+          <td>{{ requestedItemDetail.lengtd }}</td>
+          <td>{{ requestedItemDetail.widtd }}</td>
+          <td>{{ requestedItemDetail.height }}</td>
+          <td>{{ requestedItemDetail.weight }}</td>
+          <td>{{ requestedItemDetail.moq }}</td>
+          <td>{{ requestedItemDetail.lead_time }}</td>
+          <td>{{ requestedItemDetail.estimated_fba_cost_by_air }}</td>
+          <td>{{ requestedItemDetail.estimated_fba_cost_by_lcl }}</td>
+          <td>{{ requestedItemDetail.max_roi }}</td>
+          <td>{{ requestedItemDetail.min_roi }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

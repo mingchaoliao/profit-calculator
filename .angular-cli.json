@@ -9,7 +9,9 @@
       "outDir": "dist",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        "manifest.json",
+        "icon.png"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -25,6 +27,7 @@
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
+        "test": "environments/environment.test.ts",
         "prod": "environments/environment.prod.ts"
       }
     }
