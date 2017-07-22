@@ -1,0 +1,14 @@
+th {
+  font-size: 0.9em;
+}
+
+th p {
+  position: relative;
+  display: inline;
+  cursor: pointer;
+}
+
+th p i {
+  top: 1px;
+  position: absolute;
+}

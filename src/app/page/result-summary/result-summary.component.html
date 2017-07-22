@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-xs-12">
+    <a [routerLink]="['']" class="btn btn-primary">Go Back</a>
+  </div>
+</div>
+
+<div class="row" style="margin-top: 15px;">
+  <div class="col-xs-12">
+    <h3>Summary: </h3>
+  </div>
+  <div class="col-xs-12">
+    <div class="table-responsive" *ngIf="records">
+      <table class="table">
+        <thead>
+        <tr>
+          <th style="min-width: 129px;">
+            <p (click)="sortResults('product_name')">Product Name</p>
+            <p (click)="sortResults('product_name')">
+              <i class="fa fa-sort-asc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['product_name'] > 0 ? '1' : '0.2'}"></i>
+              <i class="fa fa-sort-desc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['product_name'] < 0 ? '1' : '0.2'}"></i>
+            </p>
+          </th>
+          <th style="min-width: 59px;">
+            <p (click)="sortResults('asin')">ASIN</p>
+            <p (click)="sortResults('asin')">
+             <i class="fa fa-sort-asc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['asin'] > 0 ? '1' : '0.2'}"></i>
+              <i class="fa fa-sort-desc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['asin'] < 0 ? '1' : '0.2'}"></i>
+            </p>
+          </th>
+          <th style="min-width: 59px;">
+            <p (click)="sortResults('rank')">Rank</p>
+            <p (click)="sortResults('rank')">
+              <i class="fa fa-sort-asc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['rank'] > 0 ? '1' : '0.2'}"></i>
+              <i class="fa fa-sort-desc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['rank'] < 0 ? '1' : '0.2'}"></i>
+            </p>
+          </th>
+          <th style="min-width: 134px;">
+            <p (click)="sortResults('estimated_sales')">Estimated Sales</p>
+            <p (click)="sortResults('estimated_sales')">
+              <i class="fa fa-sort-asc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['estimated_sales'] > 0 ? '1' : '0.2'}"></i>
+              <i class="fa fa-sort-desc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['estimated_sales'] < 0 ? '1' : '0.2'}"></i>
+            </p>
+          </th>
+          <th style="min-width: 84px;">
+            <p (click)="sortResults('max_roi')">Max ROI</p>
+            <p (click)="sortResults('max_roi')">
+              <i class="fa fa-sort-asc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['max_roi'] > 0 ? '1' : '0.2'}"></i>
+              <i class="fa fa-sort-desc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['max_roi'] < 0 ? '1' : '0.2'}"></i>
+            </p>
+          </th>
+          <th style="min-width: 84px;">
+            <p (click)="sortResults('min_roi')">Min ROI</p>
+            <p (click)="sortResults('min_roi')">
+              <i class="fa fa-sort-asc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['min_roi'] > 0 ? '1' : '0.2'}"></i>
+              <i class="fa fa-sort-desc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['min_roi'] < 0 ? '1' : '0.2'}"></i>
+            </p>
+          </th>
+          <th style="min-width: 59px;">
+            <p (click)="sortResults('moq')">MOQ</p>
+            <p (click)="sortResults('moq')">
+              <i class="fa fa-sort-asc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['moq'] > 0 ? '1' : '0.2'}"></i>
+              <i class="fa fa-sort-desc" aria-hidden="true" [ngStyle]="{opacity: sortStatus['moq'] < 0 ? '1' : '0.2'}"></i>
+            </p>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let record of records">
+          <td>
+            <span style="color: #1155CC; cursor: pointer;" (click)="productNameClicked(record.asin)" data-toggle="tooltip" title="<img src='{{record.image_url}}' />" *ngIf="record.image_url">{{record.product_name}}</span>
+            <span style="color: #1155CC; cursor: pointer;" (click)="productNameClicked(record.asin)" *ngIf="!record.image_url">{{record.product_name}}</span>
+          </td>
+          <td>{{record.asin}}</td>
+          <td>{{record.rank}}</td>
+          <td>{{record.estimated_sales}}</td>
+          <td>{{record.max_roi}}</td>
+          <td>{{record.min_roi}}</td>
+          <td>{{record.moq}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

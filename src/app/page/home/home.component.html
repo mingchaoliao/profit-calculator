@@ -4,11 +4,14 @@
     <a class="btn btn-primary" (click)="addCurrentItem()" *ngIf="tabTitle">{{tabTitle}}</a>
   </div>
   <div class="col-xs-6 text-right">
-    <a [routerLink]="['', 'request-summary']" class="btn btn-primary">Result Summary</a>
+    <a [routerLink]="['', 'result-summary']" class="btn btn-primary" *ngIf="amazonItems">Result Summary</a>
   </div>
 </div>
 
 <div class="row" style="margin-top: 15px;">
+  <div class="col-xs-12 text-center" style="height: 500px; line-height: 500px; vertical-align: middle;" *ngIf="!amazonItems">
+    <img src="assets/img/loading.gif" alt="loading">
+  </div>
   <div class="col-xs-12">
     <div class="table-responsive" *ngIf="amazonItems">
       <table class="table" id="amazon-item-table">
@@ -50,11 +53,11 @@
 
 <div class="row" style="margin-top: 15px;">
   <div class="col-xs-6">
-    <a class="btn btn-primary" (click)="selectAll()">Select All</a>
-    <a class="btn btn-primary" (click)="deselectAll()">Deselect All</a>
+    <a class="btn btn-primary" (click)="selectAll()" *ngIf="amazonItems">Select All</a>
+    <a class="btn btn-primary" (click)="deselectAll()" *ngIf="amazonItems">Deselect All</a>
   </div>
   <div class="col-xs-6 text-right">
-    <a class="btn btn-success {{showSubmitBtn?'':'disabled'}}" (click)="submit()">Submit</a>
+    <a class="btn btn-success {{showSubmitBtn?'':'disabled'}}" (click)="submit()" *ngIf="amazonItems">Submit</a>
   </div>
 </div>
 

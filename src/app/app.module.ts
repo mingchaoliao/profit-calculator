@@ -8,11 +8,11 @@ import {RouterModule, Routes} from '@angular/router';
 import { HomeComponent } from './page/home/home.component';
 import {HttpService} from './service/http.service';
 import { DetailComponent } from './page/detail/detail.component';
-import { RequestSummaryComponent } from './page/request-summary/request-summary.component';
+import { ResultSummaryComponent } from './page/result-summary/result-summary.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'request-summary', component: RequestSummaryComponent },
+  { path: 'result-summary', component: ResultSummaryComponent },
   { path: 'detail', component: DetailComponent },
   { path: '', component: HomeComponent }
 ];
@@ -23,7 +23,7 @@ const appRoutes: Routes = [
     LoginComponent,
     HomeComponent,
     DetailComponent,
-    RequestSummaryComponent
+    ResultSummaryComponent
   ],
   imports: [
     BrowserModule,
